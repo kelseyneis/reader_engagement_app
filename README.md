@@ -1,0 +1,1 @@
+[This tutorial](https://www.geeksforgeeks.org/how-to-connect-reactjs-with-flask-api/) by @shiv_ka_ansh was used to connect the React frontend to the Flask backend
