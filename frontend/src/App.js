@@ -1,48 +1,65 @@
 // Importing modules
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import { sizePage } from "./utils";
 
-function App() {
-	// usestate for setting a javascript
-	// object for storing and using data
-	const [data, setdata] = useState({
-		name: "",
-		age: 0,
-		date: "",
-		programming: "",
-	});
-
-	// Using useEffect for single rendering
-	useEffect(() => {
-		// Using fetch to fetch the api from
-		// flask server it will be redirected to proxy
-		fetch("/data").then((res) =>
-			res.json().then((data) => {
-				// Setting a data from api
-				setdata({
-					name: data.Name,
-					age: data.Age,
-					date: data.Date,
-					programming: data.programming,
-				});
-			})
-		);
-	}, []);
-
+const story = {
+	filename: "schoolmistress"
+}
+function Paragraph(props) {
 	return (
-		<div className="App">
-			<header className="App-header">
-				<h1>React and flask</h1>
-				{/* Calling a data from setdata for showing */}
-				<p>{data.name}</p>
-				<p>{data.age}</p>
-				<p>{data.date}</p>
-				<p>{data.programming}</p>
-
-			</header>
-		</div>
-	);
+		<p className="paragraph" onClick={props.onClick}>
+			{props.value}
+		</p>
+	)
 }
 
-export default App;
+class Story extends React.Component {
+	renderParagraph(i) {
+		const lower = window.pageYOffset + window.innerHeight;
+		const visible = i.offsetTop < lower ? "" : "hidden"
+	  return (
+		<Paragraph
+			style={{visibility:visible}}
+		  	value={this.props.paragraphs[i]}
+		  	onClick={() => this.props.onClick(i)}
+		/>
+	  );
+	}
+  
+	render() {
+	  return (
+		<div>
+		  {this.props.paragraphs}
+		</div>
+	  );
+	}
+  }
+// function Story(props) {
+// 	const [data, setData] = useState([]);
+// 	const loadData = async () => {
+// 	  const res = await fetch(`./stories/${props.story}.txt`);
+// 	  setData( (await res.text()).split('\n'));
 
+// 	};  useEffect(() => {
+// 	  loadData();
+// 	  return () => {};
+// 	}, [props]);
+// 	return (data.map((paragraph, index) => (
+// 						<p key={index}>
+// 							  {paragraph}
+// 						</p>
+// 						)
+// 					)
+// 			)
+//   }
+  
+
+
+  export default function App() {
+	return (
+	  <div id="story">
+		<Story story={story.filename} />
+	  </div>
+	);
+  }

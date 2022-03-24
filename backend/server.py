@@ -1,5 +1,6 @@
 # Import flask and datetime module for showing date and time
 from flask import Flask
+import os
 import datetime
   
 x = datetime.datetime.now()
@@ -19,7 +20,11 @@ def get_time():
         "Date":x, 
         "programming":"python"
         }
-  
+
+@app.route("/stories/<story>")
+def survey(story = ""):
+    story_text = open(f"stories/{story}")
+    return story_text.read()
       
 # Running app
 if __name__ == '__main__':
