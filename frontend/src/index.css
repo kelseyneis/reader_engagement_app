@@ -12,6 +12,14 @@ code {
     monospace;
 }
 
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
 
 /* .container {
   background-color: rgba(255, 255, 255, 0.8);
