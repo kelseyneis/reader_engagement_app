@@ -1,19 +1,19 @@
-.App {
+.Reader {
   text-align: center;
 }
 
-.App-logo {
+.Reader-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
+  .Reader-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
-.App-header {
+.Reader-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -24,7 +24,7 @@
   color: white;
 }
 
-.App-link {
+.Reader-link {
   color: #61dafb;
 }
 
@@ -35,4 +35,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+div {
+  background-color: #88a8b8;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+
+div.story {
+  height: 95vh;
+  padding: 20px 20px 20px 20px;
+}
+
+p {
+  line-height: 1.5;
+  font-size: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
 }

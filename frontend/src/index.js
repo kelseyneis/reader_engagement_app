@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Read from './App';
+import Reader from './Reader';
+import Instructions from './Instructions';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Read />
+    <header />
+    <Instructions />
+    <Reader />
   </React.StrictMode>,
   document.getElementById('root')
 );

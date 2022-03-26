@@ -11,23 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.hidden {
-  display: none;
-}
-
-.visible {
-  display: block;
-}
-
-
-/* .container {
-  background-color: rgba(255, 255, 255, 0.8);
-  height:100vh;
-}
-
-.container > div {
-  background-color: rgba(255, 255, 255, 0.8);
-  text-align: left;
-  font-size: 20px;
-} */
