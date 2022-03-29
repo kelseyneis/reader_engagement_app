@@ -1,16 +1,23 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ReactDOM from 'react-dom';
 import './index.css';
-import Reader from './Reader';
-import Instructions from './Instructions';
+import Reader from "./pages/Reader"
+import Instructions from "./pages/Instructions"
+import Layout from "./pages/Layout"
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <header />
-    <Instructions />
-    <Reader />
-  </React.StrictMode>,
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Instructions />} />
+          <Route path="reader" element={<Reader />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    </React.StrictMode>,
   document.getElementById('root')
 );
 

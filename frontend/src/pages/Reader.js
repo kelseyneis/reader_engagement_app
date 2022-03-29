@@ -1,8 +1,8 @@
 // Importing modules
 import React, { Component } from "react";
-import "./Reader.css";
-import { Story, PageNumber, showFirstQuestions, showLastQuestions } from "./Story"
-import { ReaderUtils } from './ReaderUtils'
+import "../Reader.css";
+import Story, { PageNumber, FirstQuestions, showLastQuestions } from "./Story";
+import { elementsOnPage, isInBounds, hideParagraphs } from '../readerUtils';
 
 /**
  * TODO:
@@ -25,7 +25,7 @@ class Reader extends Component {
 		this.state = {
 			paragraphs: [],
 			pageNumber: -1,
-			story: "",
+			story: "schoolmistress",
 			totalPages: 0
 		};
 
@@ -47,13 +47,17 @@ class Reader extends Component {
 	}
 	
 	setPageNumber(page) {
-		const paragraphs = ReaderUtils.elementsOnPage(-1);
-		if(paragraphs.length === 0 ) { return; }
+		const paragraphs = elementsOnPage(-1);
+		if(paragraphs.length === 0) {
+			return;
+		} else if (page === 1) {
+			this.updatePage(document.getElementById("firstQuestions"), page)
+		}
 
 		for (let i of paragraphs) {
 			i.classList.replace('hidden', 'visible');
 			let bounding = i.getBoundingClientRect();
-			if (ReaderUtils.isInBounds(bounding)) {
+			if (isInBounds(bounding)) {
 				this.updatePage(i, page)
 			} else {
 				i.classList.replace('visible', 'hidden')
@@ -63,14 +67,12 @@ class Reader extends Component {
 	}
 
 	showPage(page) {
-		ReaderUtils.hideParagraphs(document.getElementsByTagName('p'));
-		if (page === 1) {
-			showFirstQuestions();
-		} else if (page === this.state.totalPages) {
+		hideParagraphs(document.getElementsByTagName('p'));
+		if (page === this.state.totalPages) {
 			//todo: double check index of last page
 			showLastQuestions();
 		} else if (page >= 0 && page < this.state.totalPages) {
-			const paragraphs = ReaderUtils.elementsOnPage(page);
+			const paragraphs = elementsOnPage(page);
 			for (let i of paragraphs) {
 				i.classList.replace('hidden', 'visible');
 			}
@@ -99,7 +101,7 @@ class Reader extends Component {
 		const fetchStoryText = async () => {
 			// Todo: add error handling
 			const ac = new AbortController();
-			const story = await fetch(`./stories/${this.state.story}`, { signal: ac.signal })
+			const story = await fetch(`./stories/${this.state.story}.txt`, { signal: ac.signal })
 			const storyText = await story.text()
 			const storyObjects = storyText.split('\n')
 				.map((value, index) => {
@@ -110,18 +112,24 @@ class Reader extends Component {
 						index: index
 					}
 				});
+			const storiesWithQuestions = storyObjects.concat({
+				paragraph: "firstQuestions",
+				page: 1,
+				style: "",
+				index: storyObjects.length
+			})
 			this._isMounted && this.setState({
-				paragraphs: storyObjects,
+				paragraphs: storiesWithQuestions,
 				pageNumber: 0
 			})
 
 			// Set up page numbers of paragraphs for pagination
-			ReaderUtils.hideParagraphs(ReaderUtils.elementsOnPage(-1));
+			hideParagraphs(elementsOnPage(-1));
 			var total = 0;
 			for (let i=0; i < this.state.paragraphs.length; i++) {
-				ReaderUtils.hideParagraphs(document.getElementsByTagName('p'))
+				hideParagraphs(document.getElementsByTagName('p'))
 				this.setPageNumber(i);
-				if (ReaderUtils.elementsOnPage(i).length === 0) { 
+				if (elementsOnPage(i).length === 0) { 
 					total = i - 1;
 					break;
 				}
@@ -132,7 +140,7 @@ class Reader extends Component {
 			})
 
 			// Show first page
-			ReaderUtils.hideParagraphs(document.getElementsByTagName('p'))
+			hideParagraphs(document.getElementsByTagName('p'))
 			this.showPage(this.state.pageNumber);
 
 			// Unsubscribe from async action
