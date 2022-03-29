@@ -38,15 +38,15 @@
 }
 
 div {
-  background-color: #88a8b8;
+  background-color: #aabfc9;
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
 }
 
 div.story {
-  height: 95vh;
-  padding: 20px 20px 20px 20px;
+  height: 90vh;
+  padding: 10px 20px 10px 20px;
 }
 
 p {
@@ -60,4 +60,8 @@ p {
 
 .visible {
   display: block;
+}
+
+ul {
+  margin: 0em;
 }

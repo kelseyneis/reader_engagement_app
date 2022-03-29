@@ -1,12 +1,11 @@
 // Importing modules
 import React, { Component } from "react";
 import "../Reader.css";
-import Story, { PageNumber, FirstQuestions, showLastQuestions } from "./Story";
+import Story, { PageNumber } from "./Story";
 import { elementsOnPage, isInBounds, hideParagraphs } from '../readerUtils';
 
 /**
  * TODO:
- * 1. Add routing
  * 2. Add highlighting library
  * 3. Log highlights on frontend
  * 4. Add page 1 questions
@@ -26,7 +25,8 @@ class Reader extends Component {
 			paragraphs: [],
 			pageNumber: -1,
 			story: "schoolmistress",
-			totalPages: 0
+			totalPages: 0,
+			annotate: false
 		};
 
 		// Bind stateful functions
@@ -48,10 +48,11 @@ class Reader extends Component {
 	
 	setPageNumber(page) {
 		const paragraphs = elementsOnPage(-1);
-		if(paragraphs.length === 0) {
+		if (page === 1) {
+			this.updatePage(document.getElementById("firstQuestions"), page);
 			return;
-		} else if (page === 1) {
-			this.updatePage(document.getElementById("firstQuestions"), page)
+		} else if(paragraphs.length === 0) {
+			return;
 		}
 
 		for (let i of paragraphs) {
@@ -67,18 +68,15 @@ class Reader extends Component {
 	}
 
 	showPage(page) {
-		hideParagraphs(document.getElementsByTagName('p'));
-		if (page === this.state.totalPages) {
-			//todo: double check index of last page
-			showLastQuestions();
-		} else if (page >= 0 && page < this.state.totalPages) {
+		if (page >= 0 && page <= this.state.totalPages) {
+			hideParagraphs(document.getElementsByClassName('paragraph'));
 			const paragraphs = elementsOnPage(page);
-			for (let i of paragraphs) {
-				i.classList.replace('hidden', 'visible');
-			}
-			this.setState({
-				pageNumber: page
-			})
+				for (let i of paragraphs) {
+					i.classList.replace('hidden', 'visible');
+				}
+				this.setState({
+					pageNumber: page
+				})
 		}
 	}
 	
@@ -127,7 +125,7 @@ class Reader extends Component {
 			hideParagraphs(elementsOnPage(-1));
 			var total = 0;
 			for (let i=0; i < this.state.paragraphs.length; i++) {
-				hideParagraphs(document.getElementsByTagName('p'))
+				hideParagraphs(document.getElementsByClassName('paragraph'))
 				this.setPageNumber(i);
 				if (elementsOnPage(i).length === 0) { 
 					total = i - 1;
@@ -140,7 +138,7 @@ class Reader extends Component {
 			})
 
 			// Show first page
-			hideParagraphs(document.getElementsByTagName('p'))
+			hideParagraphs(document.getElementsByClassName('paragraph'))
 			this.showPage(this.state.pageNumber);
 
 			// Unsubscribe from async action
@@ -160,11 +158,13 @@ class Reader extends Component {
 		const paragraphs = this.state.paragraphs;
 		const page = this.state.pageNumber;
 		const totalPages = this.state.totalPages;
+		const annotate = this.state.annotate;
 
 		return (
 			<div className="read">
 					<Story
 						paragraphs={paragraphs}
+						annotate={annotate}
 					/>
 					<PageNumber
 						page={page}
