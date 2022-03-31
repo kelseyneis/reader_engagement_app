@@ -38,7 +38,6 @@
 }
 
 div {
-  background-color: #aabfc9;
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
@@ -47,11 +46,23 @@ div {
 div.story {
   height: 90vh;
   padding: 10px 20px 10px 20px;
+  overflow:scroll;
+}
+
+div.pagenumber {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
 }
 
 p {
   line-height: 1.5;
   font-size: 20px;
+}
+
+button#annotate {
+  position: absolute;
+  right: 10%;
 }
 
 .hidden {

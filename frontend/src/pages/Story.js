@@ -7,15 +7,16 @@ class Paragraph extends Component {
 		super(props);
 		this.state = {
 			value: [],
-			tag: '',
-			content: this.props.value
+			tag: 'Confused',
+			content: props.value
 		};
 	}
 
-	COLORS = {Confused: "#CC79A7", Connected: "#D55E00", Present: "#0072B2", Curious: "#F0E442", Other: "#009E73"}
+	COLORS = {Confused: "#CC79A7", Connected: "#D55E00", 
+	Present: "#0072B2", Curious: "#F0E442", Other: "#009E73"}
 
 	getAnnotate() {
-		return this.props.annotate ? "" : "none"
+		return (this.props.annotate ? "" : "none");
 	}
 
 	render() {
@@ -23,7 +24,7 @@ class Paragraph extends Component {
 			<div className="paragraph visible"
 			page={this.props.page} 
 			style={this.props.style} index={this.props.index}>
-				<select style={{display: this.getAnnotate }}
+				<select style={{display: this.getAnnotate() }}
         		onChange={e => this.setState({ tag: e.target.value })}
        		 value={this.state.tag}
       		>
@@ -33,25 +34,27 @@ class Paragraph extends Component {
        		<option value="Curious">Curious</option>
        		<option value="Other">Liked (other)</option>
      		 </select>
-			<TextAnnotator  
-					content={this.state.content}
-					value={this.state.value}
-					onChange={ value => this.setState({ value }) }
-					getSpan={ span => ({
-						...span,
-						tag: this.state.tag,
-						color: this.COLORS[this.state.tag],
-					})}
-					renderMark={props => (
-						<mark
-						  key={props.key}
-						  onClick={() => props.onClick({start: props.start, end: props.end})}
+			<p>
+				<TextAnnotator  
+						content={this.props.value}
+						value={this.state.value}
+						onChange={ value => this.setState({ value }) }
+						getSpan={ span => ({
+							...span,
+							tag: this.state.tag,
+							color: this.COLORS[this.state.tag],
+						})}
+						renderMark={props => (
+							<mark
+							key={props.key}
+							onClick={() => props.onClick({start: props.start, end: props.end})}
+							>
+							{props.content} [{props.tag}]
+							</mark>
+						)}
 						>
-						  {props.content} [{props.tag}]
-						</mark>
-					 )}
-					 >
-				</TextAnnotator>
+					</TextAnnotator>
+				</p>
 			</div>
 		)
 	}
@@ -66,20 +69,60 @@ const PageNumber = props => {
 }
 
 const FirstQuestions = props => {
+	const [inputs, setInputs] = useState({});
+
+	const handleChange = (event) => {
+		const name = event.target.name;
+		const value = event.target.value;
+		setInputs(values => ({...values, [name]: value}))
+	 }
+
+	 const handleSubmit = (event) => {
+		event.preventDefault();
+		
+	 }
+
    return (
-		<p className="paragraph visible" 
+		<div className="paragraph visible" 
 		id="firstQuestions"
 		index={props.index}
 		page={props.page}
 		style={props.style}>
-			First Questions
-		</p>
+			<form onSubmit={handleSubmit}>
+				<label>What did you like about the beginning of the story?</label>
+				<br/>
+				<textarea rows="4" cols="50" id="firstPageQuestions-1"
+					type="text" 
+					name="firstPageQuestion1" 
+					value={inputs.firstPageQuestion1 || ""} 
+					onChange={handleChange}></textarea>
+				<br />
+				<label>What do you want to know? Think of some questions you'd like the story to answer.</label>
+				<br/>
+				<textarea rows="4" cols="50" id="firstPageQuestions-2"
+					type="text" 
+					name="firstPageQuestion2" 
+					value={inputs.firstPageQuestion2 || ""} 
+					onChange={handleChange}></textarea>
+				<br />
+				<label>What did you not like about it?</label>
+				<br/>
+				<textarea rows="4" cols="50" id="firstPageQuestions-3"
+					type="text" 
+					name="firstPageQuestion3" 
+					value={inputs.firstPageQuestion3 || ""} 
+					onChange={handleChange}></textarea>
+				<input type="submit" />
+			</form>
+		</div>
 	)
 }
 
-
-
 class Story extends Component {
+	constructor(props) {
+		super(props);
+	}
+
 	render() {
 		return (
 			<div className="story" >
@@ -90,7 +133,8 @@ class Story extends Component {
 							<Paragraph key={index}
 								index={index}
 								value={value.paragraph}
-								page={value.page} />
+								page={value.page} 
+								annotate={this.props.annotate}/>
 						)
 						} else {
 							return (
@@ -101,7 +145,6 @@ class Story extends Component {
 							)
 					}
 			})}
-			
 			</div>
 		);
 	}

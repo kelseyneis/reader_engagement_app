@@ -1,14 +1,13 @@
 # Import flask and datetime module for showing date and time
+from urllib import request
 from flask import Flask
-import os
 import datetime
-  
+
 x = datetime.datetime.now()
   
 # Initializing flask app
 app = Flask(__name__)
-  
-  
+
 # Route for seeing a data
 @app.route('/data')
 def get_time():
@@ -23,9 +22,10 @@ def get_time():
 
 @app.route("/stories/<story>")
 def survey(story = ""):
+    print("made it to the flask app")
     story_text = open(f"stories/{story}")
     return story_text.read()
       
 # Running app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080)

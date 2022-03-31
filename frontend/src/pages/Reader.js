@@ -6,11 +6,8 @@ import { elementsOnPage, isInBounds, hideParagraphs } from '../readerUtils';
 
 /**
  * TODO:
- * 2. Add highlighting library
  * 3. Log highlights on frontend
- * 4. Add page 1 questions
  * 5. Add final questions 
- * 6. Add instructions page
  * 7. Select story and pass into Reader state
  * 8. Save highlights to file in backend
  * 9. Save question responses
@@ -24,15 +21,15 @@ class Reader extends Component {
 		this.state = {
 			paragraphs: [],
 			pageNumber: -1,
-			story: "schoolmistress",
-			totalPages: 0,
-			annotate: false
+			story: this.props.story,
+			totalPages: 0
 		};
 
 		// Bind stateful functions
 		this.handleKeyUp = this.handleKeyUp.bind(this);
 		this.showPage = this.showPage.bind(this);
 		this.updatePage = this.updatePage.bind(this);
+		this.toggleAnnotate = this.toggleAnnotate.bind(this);
 	}
 
 	updatePage(paragraph, page) {
@@ -81,12 +78,13 @@ class Reader extends Component {
 	}
 	
 	handleKeyUp(e) {
+		e.preventDefault();
 		this._isMounted = true;
 		if (e.keyCode === 39) { // right arrow
 			this.showPage(this.state.pageNumber + 1);
 		} else if (e.keyCode === 37) { // left arrow
 			this.showPage(this.state.pageNumber - 1)
-		}
+		} else { return; }
 	}
 
 	componentDidMount() {
@@ -99,7 +97,7 @@ class Reader extends Component {
 		const fetchStoryText = async () => {
 			// Todo: add error handling
 			const ac = new AbortController();
-			const story = await fetch(`./stories/${this.state.story}.txt`, { signal: ac.signal })
+			const story = await fetch(`http://localhost:8080/stories/${this.state.story}.txt`, { signal: ac.signal, method: "GET" })
 			const storyText = await story.text()
 			const storyObjects = storyText.split('\n')
 				.map((value, index) => {
@@ -154,6 +152,13 @@ class Reader extends Component {
 		window.removeEventListener("keyup", this);
 	}
 
+	toggleAnnotate() {
+		this._isMounted = true;
+		this.setState({
+			annotate: !this.state.annotate
+		})
+	}
+
 	render() {
 		const paragraphs = this.state.paragraphs;
 		const page = this.state.pageNumber;
@@ -162,14 +167,15 @@ class Reader extends Component {
 
 		return (
 			<div className="read">
-					<Story
-						paragraphs={paragraphs}
-						annotate={annotate}
-					/>
-					<PageNumber
+				<PageNumber
 						page={page}
 						total={totalPages}
 					/>
+			<button id="annotate" onClick={this.toggleAnnotate} >Toggle highlighting</button>
+				<Story
+					paragraphs={paragraphs}
+					annotate={annotate}
+				/>
 				</div>
 		);
 	}

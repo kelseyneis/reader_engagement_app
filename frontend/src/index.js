@@ -8,16 +8,16 @@ import Layout from "./pages/Layout"
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Instructions />} />
-          <Route path="reader" element={<Reader />} />
+          <Route path="schoolmistress" element={<Reader story="schoolmistress"/>} />
+          <Route path="chemistswife" element={<Reader story="chemistswife"/>} />
+          <Route path="expensivelessons" element={<Reader story="expensivelessons"/>} />
         </Route>
       </Routes>
-    </BrowserRouter>
-    </React.StrictMode>,
+    </BrowserRouter>,
   document.getElementById('root')
 );
 
