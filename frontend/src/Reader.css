@@ -43,7 +43,7 @@ div {
           border-radius: 6px;
 }
 
-div.story {
+div.story, div.login, div.instructions {
   height: 90vh;
   padding: 10px 20px 10px 20px;
   overflow:scroll;

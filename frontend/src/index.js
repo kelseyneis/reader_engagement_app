@@ -5,13 +5,16 @@ import './index.css';
 import Reader from "./pages/Reader"
 import Instructions from "./pages/Instructions"
 import Layout from "./pages/Layout"
+import Login from "./pages/Login"
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Instructions />} />
+          <Route path="login" element={<Login />} />
           <Route path="schoolmistress" element={<Reader story="schoolmistress"/>} />
           <Route path="chemistswife" element={<Reader story="chemistswife"/>} />
           <Route path="expensivelessons" element={<Reader story="expensivelessons"/>} />

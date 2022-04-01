@@ -6,12 +6,9 @@ import { elementsOnPage, isInBounds, hideParagraphs } from '../readerUtils';
 
 /**
  * TODO:
- * 3. Log highlights on frontend
  * 5. Add final questions 
- * 7. Select story and pass into Reader state
  * 8. Save highlights to file in backend
  * 9. Save question responses
- * 10. Add login page
  */
 
 class Reader extends Component {
@@ -97,7 +94,7 @@ class Reader extends Component {
 		const fetchStoryText = async () => {
 			// Todo: add error handling
 			const ac = new AbortController();
-			const story = await fetch(`http://localhost:8080/stories/${this.state.story}.txt`, { signal: ac.signal, method: "GET" })
+			const story = await fetch(`./stories/${this.state.story}.txt`, { signal: ac.signal})
 			const storyText = await story.text()
 			const storyObjects = storyText.split('\n')
 				.map((value, index) => {
@@ -171,7 +168,8 @@ class Reader extends Component {
 						page={page}
 						total={totalPages}
 					/>
-			<button id="annotate" onClick={this.toggleAnnotate} >Toggle highlighting</button>
+			<button className={annotate ? "btn btn-primary btn-sm": "btn btn-secondary btn-sm"} 
+			id="annotate" onClick={this.toggleAnnotate} >Toggle highlighting</button>
 				<Story
 					paragraphs={paragraphs}
 					annotate={annotate}
