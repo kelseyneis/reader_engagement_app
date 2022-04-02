@@ -27,11 +27,11 @@ class Instructions extends Component {
             Then you'll go back and read the story again. This time, highlight areas that made you:
         </p>
         <ol>
-            <li>Confused (Red)</li>
-            <li>Connected to or empathetic with a character (Green)</li>
-            <li>Transported to the scene of the story (Blue)</li>
-            <li>Curious about the writer's intentions or about what will happen next. (Yellow)</li>
-            <li>Other. You enjoyed it but don't know why (Orange)</li>
+            <li>Confused</li>
+            <li>Connected to or empathetic with a character</li>
+            <li>Transported to the scene of the story</li>
+            <li>Curious about the writer's intentions or about what will happen next</li>
+            <li>Other. You enjoyed it but don't know why</li>
         </ol>
         <ul>
             <li>

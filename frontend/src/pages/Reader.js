@@ -6,9 +6,8 @@ import { elementsOnPage, isInBounds, hideParagraphs } from '../readerUtils';
 
 /**
  * TODO:
- * 5. Add final questions 
- * 8. Save highlights to file in backend
- * 9. Save question responses
+ * Refactor: Add routing for pages and take questions out of page rotation
+ * When highlight toggled on, skip question pages
  */
 
 class Reader extends Component {
@@ -37,15 +36,15 @@ class Reader extends Component {
 		const data = [...this.state.paragraphs];
 		const index = data.findIndex(obj => obj.index === parseInt(paragraph.getAttribute('index')));
 		data[index].page = page;
-		this.setState({data});
+		this.setState({ data });
 	}
-	
+
 	setPageNumber(page) {
 		const paragraphs = elementsOnPage(-1);
 		if (page === 1) {
 			this.updatePage(document.getElementById("firstQuestions"), page);
 			return;
-		} else if(paragraphs.length === 0) {
+		} else if (paragraphs.length === 0) {
 			return;
 		}
 
@@ -65,15 +64,19 @@ class Reader extends Component {
 		if (page >= 0 && page <= this.state.totalPages) {
 			hideParagraphs(document.getElementsByClassName('paragraph'));
 			const paragraphs = elementsOnPage(page);
-				for (let i of paragraphs) {
-					i.classList.replace('hidden', 'visible');
-				}
-				this.setState({
-					pageNumber: page
-				})
+			for (let i of paragraphs) {
+				i.classList.replace('hidden', 'visible');
+			}
+			if (page === this.state.totalPages) {
+				document.getElementById("lastQuestions")
+					.classList.replace('hidden', 'visible');
+			}
+			this.setState({
+				pageNumber: page
+			})
 		}
 	}
-	
+
 	handleKeyUp(e) {
 		e.preventDefault();
 		this._isMounted = true;
@@ -94,7 +97,7 @@ class Reader extends Component {
 		const fetchStoryText = async () => {
 			// Todo: add error handling
 			const ac = new AbortController();
-			const story = await fetch(`./stories/${this.state.story}.txt`, { signal: ac.signal})
+			const story = await fetch(`./stories/${this.state.story}.txt`, { signal: ac.signal })
 			const storyText = await story.text()
 			const storyObjects = storyText.split('\n')
 				.map((value, index) => {
@@ -110,7 +113,13 @@ class Reader extends Component {
 				page: 1,
 				style: "",
 				index: storyObjects.length
-			})
+			}).concat({
+				paragraph: "lastQuestions",
+				page: 100,
+				style: "",
+				index: storyObjects.length + 1
+			});
+
 			this._isMounted && this.setState({
 				paragraphs: storiesWithQuestions,
 				pageNumber: 0
@@ -119,18 +128,20 @@ class Reader extends Component {
 			// Set up page numbers of paragraphs for pagination
 			hideParagraphs(elementsOnPage(-1));
 			var total = 0;
-			for (let i=0; i < this.state.paragraphs.length; i++) {
+			for (let i = 0; i < this.state.paragraphs.length; i++) {
 				hideParagraphs(document.getElementsByClassName('paragraph'))
 				this.setPageNumber(i);
-				if (elementsOnPage(i).length === 0) { 
-					total = i - 1;
+				if (elementsOnPage(i).length === 0) {
+					total = i;
 					break;
 				}
 			}
 			// Set total pages
 			this._isMounted && this.setState({
-				totalPages: total
+				totalPages: total,
 			})
+
+			this.updatePage(document.getElementById("lastQuestions"), this.state.totalPages);
 
 			// Show first page
 			hideParagraphs(document.getElementsByClassName('paragraph'))
@@ -165,16 +176,16 @@ class Reader extends Component {
 		return (
 			<div className="read">
 				<PageNumber
-						page={page}
-						total={totalPages}
-					/>
-			<button className={annotate ? "btn btn-primary btn-sm": "btn btn-secondary btn-sm"} 
-			id="annotate" onClick={this.toggleAnnotate} >Toggle highlighting</button>
+					page={page}
+					total={totalPages}
+				/>
+				<button className={annotate ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+					id="annotate" onClick={this.toggleAnnotate} >Toggle highlighting</button>
 				<Story
 					paragraphs={paragraphs}
 					annotate={annotate}
 				/>
-				</div>
+			</div>
 		);
 	}
 }

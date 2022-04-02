@@ -1,12 +1,6 @@
 export function elementsOnPage(page) {
    //TODO: use state of component instead of DOM prop
    return document.querySelectorAll(`[page='${page}']`);
-   // const pageNumber = this.state.pageNumber;
-   // return (
-   // 	this.state.paragraphs.filter((value, index) => {
-   // 		return value.page === pageNumber;
-   // 	})
-   // )
 }
 
 export function isInBounds(bounding) {
