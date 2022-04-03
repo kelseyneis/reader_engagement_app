@@ -26,13 +26,14 @@ def add_cors_headers(response):
     return response
 
 
-@app.route("/stories/<story>")
+@app.route("/backend/stories/<story>")
 def survey(story=""):
-    story_text = open(f"stories/{story}")
+    story_text = open(f"{story}")
+    app.logger.info(story_text)
     return story_text.read()
 
 
-@app.route('/log_credentials', methods=['POST'])
+@app.route('/backend/log_credentials', methods=['POST'])
 def login():
     global user
     user = request.get_json().replace(' ', '')
@@ -44,7 +45,7 @@ def login():
     return user
 
 
-@app.route('/log_questions', methods=['POST'])
+@app.route('/backend/log_questions', methods=['POST'])
 def questions():
     answers = request.get_json()
     app.logger.info(answers)
@@ -54,7 +55,7 @@ def questions():
     return answers
 
 
-@app.route('/log_highlights', methods=['POST'])
+@app.route('/backend/log_highlights', methods=['POST'])
 def highlight():
     highlight = request.get_json()
     app.logger.info(highlight)
