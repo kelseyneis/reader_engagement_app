@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile.backend
     image: react-flask-app-api
+    volumes:
+      - ./backend/logs:/backend/logs
   client:
     build:
       context: .

@@ -38,7 +38,7 @@ def login():
     global user
     user = request.get_json().replace(' ', '')
     global logging
-    logging.basicConfig(filename=f"{user}_{datetime.datetime.now().strftime('%Y-%m-%d-%X')}.log",
+    logging.basicConfig(filename=f"./logs/{user}_{datetime.datetime.now().strftime('%Y-%m-%d-%X')}.log",
                         level=logging.INFO, format=f"%(asctime)s %(levelname)s : %(message)s")
     app.logger.info('%s logged in successfully', user)
     open(f"{user}.txt", 'w')
@@ -49,7 +49,7 @@ def login():
 def questions():
     answers = request.get_json()
     app.logger.info(answers)
-    with open(f"{user}.txt", 'a') as f:
+    with open(f"./logs/{user}.txt", 'a') as f:
         f.write("\n")
         f.write(str(answers))
     return answers
@@ -59,7 +59,7 @@ def questions():
 def highlight():
     highlight = request.get_json()
     app.logger.info(highlight)
-    with open(f"{user}.txt", 'a') as f:
+    with open(f"./logs/{user}.txt", 'a') as f:
         f.write("\nHighlight: ")
         f.write(str(highlight))
     return str(highlight)
