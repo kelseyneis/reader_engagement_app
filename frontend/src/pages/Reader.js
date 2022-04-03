@@ -97,7 +97,7 @@ class Reader extends Component {
 		const fetchStoryText = async () => {
 			// Todo: add error handling
 			const ac = new AbortController();
-			const story = await fetch(`./stories/${this.state.story}.txt`, { signal: ac.signal })
+			const story = await fetch(`./backend/stories/${this.state.story}.txt`, { signal: ac.signal })
 			const storyText = await story.text()
 			const storyObjects = storyText.split('\n')
 				.map((value, index) => {

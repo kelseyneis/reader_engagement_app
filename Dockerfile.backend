@@ -1,0 +1,11 @@
+FROM python:3.10
+WORKDIR /backend
+
+COPY backend/Pipfile.lock backend/server.py backend/Procfile backend/wsgi.py backend/runtime.txt backend/stories/* ./
+RUN pip install pipenv
+RUN pipenv install gunicorn
+RUN pipenv install flask
+ENV FLASK_ENV production
+
+EXPOSE 9000
+CMD pipenv run gunicorn -b :9000 wsgi:app

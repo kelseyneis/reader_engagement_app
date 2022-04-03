@@ -43,7 +43,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://127.0.0.1:9000",
+  "proxy": "http://wsgi:9000",
   "devDependencies": {
     "react-router-dom": "^6.2.2"
   }

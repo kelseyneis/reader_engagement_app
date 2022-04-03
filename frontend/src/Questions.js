@@ -26,7 +26,7 @@ export const FirstQuestions = props => {
       log.info(inputs)
       setInputs(inputs)
       setSubmitted(true);
-      await fetch('./log_questions', {
+      await fetch('./backend/log_questions', {
          method: 'POST', body: JSON.stringify(inputs),
          headers: { 'Content-Type': 'application/json' }
       });
@@ -116,7 +116,7 @@ export const LastQuestions = props => {
       log.info(inputs);
       setInputs(inputs);
       setSubmitted(true);
-      await fetch('./log_questions', {
+      await fetch('./backend/log_questions', {
          method: 'POST', body: JSON.stringify(inputs),
          headers: { 'Content-Type': 'application/json' }
       });
