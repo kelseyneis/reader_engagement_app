@@ -4,12 +4,6 @@ import "../Reader.css";
 import Story, { PageNumber } from "./Story";
 import { elementsOnPage, isInBounds, hideParagraphs } from '../readerUtils';
 
-/**
- * TODO:
- * Refactor: Add routing for pages and take questions out of page rotation
- * When highlight toggled on, skip question pages
- */
-
 class Reader extends Component {
 	constructor(props) {
 		super(props);
@@ -97,7 +91,7 @@ class Reader extends Component {
 		const fetchStoryText = async () => {
 			// Todo: add error handling
 			const ac = new AbortController();
-			const story = await fetch(`./backend/stories/${this.state.story}.txt`, { signal: ac.signal })
+			const story = await fetch(`../backend/stories/${this.state.story}.txt`, { signal: ac.signal })
 			const storyText = await story.text()
 			const storyObjects = storyText.split('\n')
 				.map((value, index) => {

@@ -41,7 +41,7 @@ def login():
     logging.basicConfig(filename=f"./logs/{user}_{datetime.datetime.now().strftime('%Y-%m-%d-%X')}.log",
                         level=logging.INFO, format=f"%(asctime)s %(levelname)s : %(message)s")
     app.logger.info('%s logged in successfully', user)
-    open(f"{user}.txt", 'w')
+    open(f"./logs/{user}.txt", 'w')
     return user
 
 
@@ -67,4 +67,4 @@ def highlight():
 
 # Running app
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=9000)
+    app.run(debug=True, port=9000)

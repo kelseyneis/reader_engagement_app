@@ -26,7 +26,7 @@ export const FirstQuestions = props => {
       log.info(inputs)
       setInputs(inputs)
       setSubmitted(true);
-      await fetch('./backend/log_questions', {
+      await fetch('../backend/log_questions', {
          method: 'POST', body: JSON.stringify(inputs),
          headers: { 'Content-Type': 'application/json' }
       });
@@ -116,7 +116,7 @@ export const LastQuestions = props => {
       log.info(inputs);
       setInputs(inputs);
       setSubmitted(true);
-      await fetch('./backend/log_questions', {
+      await fetch('../backend/log_questions', {
          method: 'POST', body: JSON.stringify(inputs),
          headers: { 'Content-Type': 'application/json' }
       });
@@ -155,7 +155,7 @@ export const LastQuestions = props => {
             })}
             <button className="btn btn-primary btn-sm" type="submit">Submit</button>
          </form>
-         {submitted ? <p style={{ color: "green" }}>Submitted successfully!</p> : ""}
+         {submitted ? <p style={{ color: "green" }}>Submitted successfully! Refresh the browser to go back for highlighting.</p> : ""}
       </div>
    )
 }
