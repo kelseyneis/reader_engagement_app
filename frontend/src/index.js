@@ -10,17 +10,17 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Instructions />} />
-          <Route path="login" element={<Login />} />
-          <Route path="schoolmistress" element={<Reader story="schoolmistress"/>} />
-          <Route path="chemistswife" element={<Reader story="chemistswife"/>} />
-          <Route path="expensivelessons" element={<Reader story="expensivelessons"/>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>,
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Instructions />} />
+        <Route path="login" element={<Login />} />
+        <Route path="/read/schoolmistress" element={<Reader story="schoolmistress" />} />
+        <Route path="/read/chemistswife" element={<Reader story="chemistswife" />} />
+        <Route path="/read/expensivelessons" element={<Reader story="expensivelessons" />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
