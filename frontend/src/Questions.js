@@ -26,7 +26,7 @@ export const FirstQuestions = props => {
       log.info(inputs)
       setInputs(inputs)
       setSubmitted(true);
-      await fetch('../backend/log_questions', {
+      await fetch('../backend/log_questions/1', {
          method: 'POST', body: JSON.stringify(inputs),
          headers: { 'Content-Type': 'application/json' }
       });
@@ -63,23 +63,23 @@ const RadioQuestion = props => {
    return (
       <div className="radio" onChange={props.onChange}>
          <div className="form-check form-check-inline">
-            <input className="form-check-input" type="radio" name={props.name} id={`${props.name}1`} value="option1" />
+            <input className="form-check-input" type="radio" name={props.name} id={`${props.name}1`} value="1" />
             <label className="form-check-label" htmlFor={`${props.name}1`}>1</label>
          </div>
          <div className="form-check form-check-inline">
-            <input className="form-check-input" type="radio" name={props.name} id={`${props.name}2`} value="option2" />
+            <input className="form-check-input" type="radio" name={props.name} id={`${props.name}2`} value="2" />
             <label className="form-check-label" htmlFor={`${props.name}2`}>2</label>
          </div>
          <div className="form-check form-check-inline">
-            <input className="form-check-input" type="radio" name={props.name} id={`${props.name}3`} value="option3" />
+            <input className="form-check-input" type="radio" name={props.name} id={`${props.name}3`} value="3" />
             <label className="form-check-label" htmlFor={`${props.name}3`}>3</label>
          </div>
          <div className="form-check form-check-inline">
-            <input className="form-check-input" type="radio" name={props.name} id={`${props.name}4`} value="option4" />
+            <input className="form-check-input" type="radio" name={props.name} id={`${props.name}4`} value="4" />
             <label className="form-check-label" htmlFor={`${props.name}4`}>4</label>
          </div>
          <div className="form-check form-check-inline">
-            <input className="form-check-input" type="radio" name={props.name} id={`${props.name}5`} value="option5" />
+            <input className="form-check-input" type="radio" name={props.name} id={`${props.name}5`} value="5" />
             <label className="form-check-label" htmlFor={`${props.name}5`}>5</label>
          </div>
       </div>
@@ -116,7 +116,7 @@ export const LastQuestions = props => {
       log.info(inputs);
       setInputs(inputs);
       setSubmitted(true);
-      await fetch('../backend/log_questions', {
+      await fetch('../backend/log_questions/2', {
          method: 'POST', body: JSON.stringify(inputs),
          headers: { 'Content-Type': 'application/json' }
       });
@@ -133,8 +133,8 @@ export const LastQuestions = props => {
                return (
                   <div className="radioQuestion" key={`1-${index}`}>{value}
                      <RadioQuestion index={index}
-                        value={inputs[`inlineRadioOptions${index}`]}
-                        name={`inlineRadioOptions${index}`}
+                        value={inputs[`lastPageQuestionsRadio${index}`]}
+                        name={`lastPageQuestionsRadio${index}`}
                         onChange={handleChange} />
                   </div>
                )
@@ -145,10 +145,10 @@ export const LastQuestions = props => {
                   <div className="freeformQuestion" key={`2-${index}`}>
                      <label className="form-label">{value}</label>
                      <textarea className="form-control" rows="4" cols="50"
-                        id={`lastpagefreeform${index}`}
+                        id={`lastPageQuestionsFreeform${index}`}
                         type="text"
-                        name={`lastpagefreeform${index}`}
-                        value={inputs[`lastpagefreeform${index}`] || ""}
+                        name={`lastPageQuestionsFreeform${index}`}
+                        value={inputs[`lastPageQuestionsFreeform${index}`] || ""}
                         onChange={handleChange}></textarea>
                   </div>
                )

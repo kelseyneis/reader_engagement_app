@@ -29,7 +29,6 @@ def add_cors_headers(response):
 @app.route("/backend/stories/<story>")
 def survey(story=""):
     story_text = open(f"{story}")
-    app.logger.info(story_text)
     return story_text.read()
 
 
@@ -40,28 +39,30 @@ def login():
     global logging
     logging.basicConfig(filename=f"./logs/{user}_{datetime.datetime.now().strftime('%Y-%m-%d-%X')}.log",
                         level=logging.INFO, format=f"%(asctime)s %(levelname)s : %(message)s")
-    app.logger.info('%s logged in successfully', user)
-    open(f"./logs/{user}.txt", 'w')
+    app.logger.info(f'{user} logged in successfully')
+    with open(f"./logs/{user}.txt", 'w') as f:
+        f.write(
+            f"{datetime.datetime.now().strftime('%Y-%m-%d-%X')} {user} logged in successfully\n")
     return user
 
 
-@app.route('/backend/log_questions', methods=['POST'])
-def questions():
+@app.route('/backend/log_questions/<survey>', methods=['POST'])
+def questions(survey):
     answers = request.get_json()
-    app.logger.info(answers)
+    app.logger.info(f"Survey{survey}: {answers}")
     with open(f"./logs/{user}.txt", 'a') as f:
-        f.write("\n")
-        f.write(str(answers))
+        f.write(
+            f"{datetime.datetime.now().strftime('%Y-%m-%d-%X')} Survey{survey}: {str(answers)}\n")
     return answers
 
 
 @app.route('/backend/log_highlights', methods=['POST'])
 def highlight():
     highlight = request.get_json()
-    app.logger.info(highlight)
+    app.logger.info(f"Highlight: {highlight}")
     with open(f"./logs/{user}.txt", 'a') as f:
-        f.write("\nHighlight: ")
-        f.write(str(highlight))
+        f.write(
+            f"{datetime.datetime.now().strftime('%Y-%m-%d-%X')} Highlight: {str(highlight)}\n")
     return str(highlight)
 
 
