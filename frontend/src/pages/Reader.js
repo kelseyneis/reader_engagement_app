@@ -1,7 +1,7 @@
 // Importing modules
 import React, { Component } from "react";
 import "../Reader.css";
-import Story, { PageNumber } from "./Story";
+import Story, { PageNumber } from "../Story";
 import { elementsOnPage, isInBounds, hideParagraphs } from '../readerUtils';
 
 class Reader extends Component {

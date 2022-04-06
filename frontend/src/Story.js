@@ -1,7 +1,7 @@
 // Importing modules
 import React, { Component } from "react";
-import { FirstQuestions, LastQuestions } from '../Questions'
-import Paragraph from "../Paragraph";
+import { FirstQuestions, LastQuestions } from './Questions'
+import Paragraph from "./Paragraph";
 
 const PageNumber = props => {
 	return (
