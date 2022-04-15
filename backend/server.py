@@ -4,7 +4,7 @@ from flask import request
 from flask import Flask
 import logging
 
-safe = ['http://localhost:3000', 'http://localhost:9000']
+safe = ['http://0.0.0.0:9000', 'http://0.0.0.0:80']
 # Initializing flask app
 
 app = Flask(__name__)
@@ -68,4 +68,4 @@ def highlight():
 
 # Running app
 if __name__ == '__main__':
-    app.run(debug=True, port=9000)
+    app.run(host='0.0.0.0', debug=True, port=9000)
