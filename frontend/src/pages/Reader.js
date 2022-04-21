@@ -68,6 +68,7 @@ class Reader extends Component {
 			this.setState({
 				pageNumber: page
 			})
+			window.history.pushState("object or string", "Title", `/read/${this.state.story}/#${page}`);
 		}
 	}
 
