@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -39,14 +40,16 @@
 
 div {
   -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
 }
 
-div.story, div.login, div.instructions {
+div.story,
+div.login,
+div.instructions {
   height: 90vh;
   padding: 10px 20px 10px 20px;
-  overflow:scroll;
+  overflow: scroll;
 }
 
 div.pagenumber {
@@ -56,8 +59,8 @@ div.pagenumber {
 }
 
 p {
-  line-height: 1.5;
-  font-size: 20px;
+  line-height: 1.7;
+  font-size: 25px;
 }
 
 button#annotate {
