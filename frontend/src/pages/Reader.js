@@ -41,11 +41,13 @@ class Reader extends Component {
 		} else if (paragraphs.length === 0) {
 			return;
 		}
+		let count = 0;
 
 		for (let i of paragraphs) {
+			count += 1;
 			i.classList.replace('hidden', 'visible');
 			let bounding = i.getBoundingClientRect();
-			if (isInBounds(bounding)) {
+			if (isInBounds(bounding) || count === 1) {
 				this.updatePage(i, page)
 			} else {
 				i.classList.replace('visible', 'hidden')
