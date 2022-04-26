@@ -56,9 +56,13 @@ class Reader extends Component {
 		}
 	}
 
-	showPage(page) {
+	showPage(page, direction) {
 		if (page >= 0 && page <= this.state.totalPages) {
 			hideParagraphs(document.getElementsByClassName('paragraph'));
+			if (page === 1 && this.state.annotate) {
+				// If the user is annotating, skip page 1 questions
+				page = page + direction;
+			}
 			const paragraphs = elementsOnPage(page);
 			for (let i of paragraphs) {
 				i.classList.replace('hidden', 'visible');
@@ -67,10 +71,11 @@ class Reader extends Component {
 				document.getElementById("lastQuestions")
 					.classList.replace('hidden', 'visible');
 			}
+
 			this.setState({
 				pageNumber: page
 			})
-			window.history.pushState("object or string", "Title", `/read/${this.state.story}/#${page}`);
+			window.history.pushState(`${this.state.story}:${page}`, `${this.state.story}`, `/read/${this.state.story}/#${page}`);
 		}
 	}
 
@@ -78,9 +83,9 @@ class Reader extends Component {
 		e.preventDefault();
 		this._isMounted = true;
 		if (e.keyCode === 39) { // right arrow
-			this.showPage(this.state.pageNumber + 1);
+			this.showPage(this.state.pageNumber + 1, 1);
 		} else if (e.keyCode === 37) { // left arrow
-			this.showPage(this.state.pageNumber - 1)
+			this.showPage(this.state.pageNumber - 1, -1)
 		} else { return; }
 	}
 
@@ -142,7 +147,7 @@ class Reader extends Component {
 
 			// Show first page
 			hideParagraphs(document.getElementsByClassName('paragraph'))
-			this.showPage(this.state.pageNumber);
+			this.showPage(this.state.pageNumber, 1);
 
 			// Unsubscribe from async action
 			return () => ac.abort();
@@ -169,6 +174,7 @@ class Reader extends Component {
 		const page = this.state.pageNumber;
 		const totalPages = this.state.totalPages;
 		const annotate = this.state.annotate;
+		const story = this.state.story;
 
 		return (
 			<div className="read">
@@ -181,6 +187,7 @@ class Reader extends Component {
 				<Story
 					paragraphs={paragraphs}
 					annotate={annotate}
+					story={story}
 				/>
 			</div>
 		);

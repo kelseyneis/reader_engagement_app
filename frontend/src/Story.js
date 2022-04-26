@@ -2,11 +2,14 @@
 import React, { Component } from "react";
 import { FirstQuestions, LastQuestions } from './Questions'
 import Paragraph from "./Paragraph";
+import { BsArrowRightSquare, BsArrowLeftSquare } from "react-icons/bs";
 
 const PageNumber = props => {
 	return (
 		<div className="pagenumber">
+			<BsArrowLeftSquare style={{ margin: "5px" }} title="Left arrow key"></BsArrowLeftSquare>
 			{props.page + 1} of {props.total + 1}
+			<BsArrowRightSquare style={{ margin: "5px" }} title="Right arrow key"></BsArrowRightSquare>
 		</div>
 	)
 }
@@ -35,7 +38,8 @@ class Story extends Component {
 									value="lastQuestions"
 									key={index}
 									index={index}
-									page={value.page} />
+									page={value.page}
+									story={this.props.story} />
 							)
 						} else {
 							return (
@@ -43,7 +47,8 @@ class Story extends Component {
 									index={index}
 									value={value.paragraph}
 									page={value.page}
-									annotate={this.props.annotate} />
+									annotate={this.props.annotate}
+									tag={[]} />
 							)
 						}
 					})}

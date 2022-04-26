@@ -13,7 +13,7 @@ class Paragraph extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         value: [],
+         value: props.tag,
          tag: 'Confused',
          content: props.value
       };
@@ -32,7 +32,7 @@ class Paragraph extends Component {
    async highlight(value) {
       const highlight = value.concat({ paragraph: this.props.index });
       log.info(JSON.stringify(highlight));
-      await fetch('../backend/log_highlights', {
+      await fetch('/backend/log_highlights', {
          method: 'POST', body: JSON.stringify(highlight),
          headers: { 'Content-Type': 'application/json' }
       });

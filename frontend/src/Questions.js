@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const log = require('console-log-level')({
    prefix: function (level) {
@@ -26,7 +27,7 @@ export const FirstQuestions = props => {
       log.info(inputs)
       setInputs(inputs)
       setSubmitted(true);
-      await fetch('../backend/log_questions/1', {
+      await fetch('/backend/log_questions/1', {
          method: 'POST', body: JSON.stringify(inputs),
          headers: { 'Content-Type': 'application/json' }
       });
@@ -53,8 +54,8 @@ export const FirstQuestions = props => {
                )
             })}
             < button className="btn btn-primary btn-sm" type="submit" > Submit</button>
+            {submitted ? <div style={{ color: "green", display: "inline", padding: "10px" }}>Submitted successfully!</div> : ""}
          </form>
-         {submitted ? <p style={{ color: "green" }}>Submitted successfully!</p> : ""}
       </div >
    )
 }
@@ -116,10 +117,11 @@ export const LastQuestions = props => {
       log.info(inputs);
       setInputs(inputs);
       setSubmitted(true);
-      await fetch('../backend/log_questions/2', {
+      await fetch('/backend/log_questions/2', {
          method: 'POST', body: JSON.stringify(inputs),
          headers: { 'Content-Type': 'application/json' }
       });
+      window.history.pushState(`Home`, `Home`, `/`);
    }
 
    return (
@@ -154,8 +156,8 @@ export const LastQuestions = props => {
                )
             })}
             <button className="btn btn-primary btn-sm" type="submit">Submit</button>
+            {submitted ? <div style={{ color: "green", display: "inline", padding: "10px" }}>Submitted successfully! Click  <Link to={`/`}>here</Link> to see instructions for the highlighting exercise, then select the same story again and click the "Toggle Highlighting" to begin.</div> : ""}
          </form>
-         {submitted ? <p style={{ color: "green" }}>Submitted successfully! Refresh the browser to go back for highlighting.</p> : ""}
       </div>
    )
 }
