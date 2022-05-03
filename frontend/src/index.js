@@ -16,7 +16,6 @@ ReactDOM.render(
         <Route index element={<Instructions />} />
         <Route path="login" element={<Login />} />
         <Route path="/read/schoolmistress" element={<Reader story="schoolmistress" />} />
-        <Route path="/read/chemistswife" element={<Reader story="chemistswife" />} />
         <Route path="/read/expensivelessons" element={<Reader story="expensivelessons" />} />
       </Route>
     </Routes>
