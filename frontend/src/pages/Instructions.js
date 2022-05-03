@@ -101,9 +101,6 @@ class Instructions extends Component {
                             <Link to="/read/schoolmistress">The Schoolmistress</Link>
                         </li>
                         <li>
-                            <Link to="/read/chemistswife">The Chemist's Wife</Link>
-                        </li>
-                        <li>
                             <Link to="/read/expensivelessons">Expensive Lessons</Link>
                         </li>
                     </ul>
