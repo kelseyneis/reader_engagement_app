@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Paragraph from "../Paragraph";
 
 class Instructions extends Component {
-    //todo: figure out how to pass story name to Reader
     render() {
         return (
             <div className="instructions">
@@ -36,10 +35,10 @@ class Instructions extends Component {
                             Then you'll go back and read the story again. This time, highlight areas that made you:
                             <ol>
                                 <li>Confused</li>
-                                <li>Connected to or empathetic with a character</li>
-                                <li>Transported to the scene of the story</li>
-                                <li>Curious about the writer's intentions or about what will happen next</li>
-                                <li>Other. You enjoyed it but don't know why</li>
+                                <li>Connected to the character; able to identify with them or feel their emotions</li>
+                                <li>Able to vividly picture the scene in the story</li>
+                                <li>Curious about what will happen next</li>
+                                <li>Other. You enjoyed it for a different reason</li>
                             </ol>
                         </li>
                     </ol>

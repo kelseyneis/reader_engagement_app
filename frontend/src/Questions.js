@@ -12,9 +12,8 @@ export const FirstQuestions = props => {
    const [inputs, setInputs] = useState({});
    const [submitted, setSubmitted] = useState("")
 
-   const questions = ['What did you like about the beginning of the story?',
-      'What do you want to know? Think of some questions you\'d like the story to answer.',
-      'What did you not like about it?']
+   const questions = ['What do you like about the story so far?',
+      'What do you want to know?']
 
    const handleChange = (event) => {
       const name = event.target.name;
@@ -94,17 +93,13 @@ export const LastQuestions = props => {
       'The story affected me emotionally.',
       'While reading my body was in the room, but my mind was inside the world created by the story.',
       'At times while reading, I wanted to know what the writer\'s intentions were.',
-      'My understanding of the characters is unclear.',
       'While reading, when a main character succeeded, I felt happy, and when they suffered in some way, I felt sad.',
-      'I had a hard time keeping my mind on the story.',
       'The characters were alive in my imagination.',
       'I found my mind wandering while reading the story.',
       'I could vividly imagine the scenes in the story.',
       'At points, I had a hard time making sense of what was going on in the story.'];
 
-   const freeQuestions = ['What did you think of the story overall? Feel free to share any thoughts and impressions you have.',
-      'Did the survey setup get in the way of enjoying the story?',
-      'Any additional feedback or suggestions?'];
+   const freeQuestions = ['What did you think of the story overall? Feel free to share any thoughts and impressions you have.'];
 
    const handleChange = (event) => {
       const name = event.target.name;
@@ -130,17 +125,20 @@ export const LastQuestions = props => {
          index={props.index}
          page={props.page}
          style={props.style}>
+         <p>Please answer the following on a scale from 1 (Strongly Disagree) to 5 (Strongly Agree)</p>
          <form className="mb-3" onSubmit={handleSubmit}>
-            {radioQuestions.map((value, index) => {
-               return (
-                  <div className="radioQuestion" key={`1-${index}`}>{value}
-                     <RadioQuestion index={index}
-                        value={inputs[`lastPageQuestionsRadio${index}`]}
-                        name={`lastPageQuestionsRadio${index}`}
-                        onChange={handleChange} />
-                  </div>
-               )
-            })}
+            <ol>
+               {radioQuestions.map((value, index) => {
+                  return (
+                     <li className="radioQuestion" key={`1-${index}`} value={index + 1}>{value}
+                        <RadioQuestion index={index}
+                           value={inputs[`lastPageQuestionsRadio${index}`]}
+                           name={`lastPageQuestionsRadio${index}`}
+                           onChange={handleChange} />
+                     </li>
+                  )
+               })}
+            </ol>
             <br /><hr />
             {freeQuestions.map((value, index) => {
                return (
