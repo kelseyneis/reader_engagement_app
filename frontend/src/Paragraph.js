@@ -48,10 +48,10 @@ class Paragraph extends Component {
                onChange={e => this.setState({ tag: e.target.value })}
                value={this.state.tag}
             >
-               <option value="Confused">Confused</option>
-               <option value="Connected">Connected</option>
-               <option value="Present">Present in scene</option>
-               <option value="Curious">Curious</option>
+               <option value="Confused">Confused, don't understand</option>
+               <option value="Connected">Connected to the character</option>
+               <option value="Present">Vividly picture the scene</option>
+               <option value="Curious">Curious about what will happen</option>
                <option value="Other">Liked (other)</option>
             </select>
             <p>
