@@ -2,14 +2,12 @@
 import React, { Component } from "react";
 import { FirstQuestions, LastQuestions } from './Questions'
 import Paragraph from "./Paragraph";
-import { BsArrowRightSquare, BsArrowLeftSquare } from "react-icons/bs";
 
 const PageNumber = props => {
 	return (
 		<div className="pagenumber">
-			<BsArrowLeftSquare style={{ margin: "5px" }} title="Left arrow key"></BsArrowLeftSquare>
+			<i>Use the right and left arrow keys to turn the page</i><br />
 			{props.page + 1} of {props.total + 1}
-			<BsArrowRightSquare style={{ margin: "5px" }} title="Right arrow key"></BsArrowRightSquare>
 		</div>
 	)
 }
