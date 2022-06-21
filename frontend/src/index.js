@@ -6,6 +6,7 @@ import Reader from "./pages/Reader"
 import Instructions from "./pages/Instructions"
 import Layout from "./pages/Layout"
 import Login from "./pages/Login"
+import Highlight from "./pages/Highlight"
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Route path="/" element={<Layout />}>
         <Route index element={<Instructions />} />
         <Route path="login" element={<Login />} />
+        <Route path="highlight" element={<Highlight />} />
         <Route path="/read/schoolmistress" element={<Reader story="schoolmistress" />} />
         <Route path="/read/expensivelessons" element={<Reader story="expensivelessons" />} />
       </Route>

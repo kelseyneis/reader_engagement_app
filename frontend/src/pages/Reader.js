@@ -58,6 +58,9 @@ class Reader extends Component {
 
 	showPage(page, direction) {
 		if (page >= 0 && page <= this.state.totalPages) {
+			if (page === this.state.totalPages && this.state.annotate) {
+				return
+			}
 			hideParagraphs(document.getElementsByClassName('paragraph'));
 			if (page === 1 && this.state.annotate) {
 				// If the user is annotating, skip page 1 questions
@@ -67,7 +70,8 @@ class Reader extends Component {
 			for (let i of paragraphs) {
 				i.classList.replace('hidden', 'visible');
 			}
-			if (page === this.state.totalPages) {
+			if (page === this.state.totalPages && !this.state.annotate) {
+				console.log("showing last questions")
 				document.getElementById("lastQuestions")
 					.classList.replace('hidden', 'visible');
 			}

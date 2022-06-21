@@ -11,5 +11,7 @@ services:
       context: .
       dockerfile: Dockerfile.client
     image: react-flask-app-client
+    volumes:
+      - './frontend/src:/src'
     ports:
       - "80:80"
