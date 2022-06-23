@@ -1,10 +1,10 @@
 # Import flask and datetime module for showing date and time
 import datetime
 import os
+import logging
 
 from flask import request
 from flask import Flask
-import logging
 
 if 'LOCAL' in os.environ:
     safe = ['http://localhost:9000', 'http://localhost:80']

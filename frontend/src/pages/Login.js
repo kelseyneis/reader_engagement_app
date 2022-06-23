@@ -21,6 +21,7 @@ const Login = () => {
       });
       log.info(`logged in user ${name}`);
       setLoggedIn(true);
+      window.location.href = '/'
    }
 
    return (
@@ -37,7 +38,7 @@ const Login = () => {
                <button className="btn btn-primary btn-sm" type="submit">Login</button>
             </div>
          </form>
-         <p style={{ display: loggedIn ? "" : "None", color: 'green' }}>Successfully logged in</p>
+         <p style={{ display: loggedIn ? "" : "None", color: 'green' }}>Successfully logged in!</p>
       </div>
    )
 }
