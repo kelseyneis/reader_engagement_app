@@ -59,7 +59,7 @@ class Reader extends Component {
 	showPage(page, direction) {
 		if (page >= 0 && page <= this.state.totalPages) {
 			if (page === this.state.totalPages && this.state.annotate) {
-				return
+				page = page - direction
 			}
 			hideParagraphs(document.getElementsByClassName('paragraph'));
 			if (page === 1 && this.state.annotate) {

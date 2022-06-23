@@ -1,11 +1,16 @@
 # Import flask and datetime module for showing date and time
 import datetime
+import os
+
 from flask import request
 from flask import Flask
 import logging
 
-safe = ['http://0.0.0.0:9000', 'http://0.0.0.0:80']
-# Initializing flask app
+if 'LOCAL' in os.environ:
+    safe = ['http://localhost:9000', 'http://localhost:80']
+else:
+    safe = ['http://0.0.0.0:9000', 'http://0.0.0.0:80']
+
 
 app = Flask(__name__)
 
@@ -28,7 +33,10 @@ def add_cors_headers(response):
 
 @app.route("/backend/stories/<story>")
 def survey(story=""):
-    story_text = open(f"{story}")
+    if 'LOCAL' in os.environ:
+        story_text = open(f"stories/{story}")
+    else:
+        story_text = open(f"{story}")
     return story_text.read()
 
 

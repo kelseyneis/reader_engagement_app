@@ -11,6 +11,7 @@
     "fs": "^0.0.1-security",
     "http-proxy-middleware": "^2.0.4",
     "markdown-to-jsx": "^7.1.7",
+    "nodemon": "^2.0.16",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-icons": "^4.3.1",
