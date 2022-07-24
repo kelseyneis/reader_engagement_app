@@ -38,10 +38,10 @@ class Instructions extends Component {
                 <p>
                     <ul>
                         <li>
-                            <Link to="/read/schoolmistress">The Schoolmistress</Link>
+                            <Link to="/read/expensivelessons">Expensive Lessons</Link>
                         </li>
                         <li>
-                            <Link to="/read/expensivelessons">Expensive Lessons</Link>
+                            <Link to="/read/schoolmistress">The Schoolmistress</Link>
                         </li>
                     </ul>
                 </p>
