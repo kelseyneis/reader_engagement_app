@@ -154,7 +154,7 @@ export const LastQuestions = props => {
                )
             })}
             <button className="btn btn-primary btn-sm" type="submit">Submit</button>
-            {submitted ? <div style={{ color: "green", display: "inline", padding: "10px" }}>Submitted successfully! Click  <Link to={`/highlight`}>here</Link> to see instructions for the highlighting exercise, then select the same story again and click the "Toggle Highlighting" to begin.</div> : ""}
+            {submitted ? <div style={{ color: "green", display: "inline", padding: "10px" }}>Submitted successfully! Click  <Link to={`/`}>here</Link> to navigate to the other story. If you already read both stories, click <Link to={`/highlight`}>here</Link> see instructions for the highlighting exercise, then select the same story again and click the "Toggle Highlighting" to begin.</div> : ""}
          </form>
       </div>
    )

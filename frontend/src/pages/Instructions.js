@@ -25,11 +25,11 @@ class Instructions extends Component {
                             <b><Link className="nav-link" to="/login">Login</Link></b>
                         </li>
                         <li>
-                            Choose a story below, and read it, using the right and left arrow keys to turn the page. There are some questions after the first page and at the end. While you're reading the first time, try to stay relatively still.
+                            Choose a story below, and read it, using the right and left arrow keys to turn the page. There are some questions after the first page and at the end. While you're reading the first time, try to stay relatively still. Then, read the other story.
                         </li>
 
                         <li>
-                            Then you'll be directed to a highlighting exercise where you'll read the story again. The eye tracking data is not as important on the second read, so feel free to move around more and relax.
+                            Then you'll be directed to a highlighting exercise where you'll read each story again. The eye tracking data is not as important on the second read, so feel free to move around more and relax.
                         </li>
                     </ol>
                 </p>
