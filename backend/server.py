@@ -39,6 +39,13 @@ def survey(story=""):
         story_text = open(f"{story}")
     return story_text.read()
 
+@app.route("/backend/highlights/<log>")
+def show_log(log=""):
+    if 'LOCAL' in os.environ:
+        story_text = open(f"highlights/{log}")
+    else:
+        story_text = open(f"{log}")
+    return story_text.read()
 
 @app.route('/backend/log_credentials', methods=['POST'])
 def login():

@@ -1,10 +1,10 @@
 // Importing modules
 import React, { Component } from "react";
-import "../Reader.css";
-import Story, { PageNumber } from "../Story";
-import { elementsOnPage, isInBounds, hideParagraphs } from '../readerUtils';
+import "./Reader.css";
+import Story, { PageNumber } from "./Story";
+import { elementsOnPage, isInBounds, hideParagraphs } from './readerUtils';
 
-class Reader extends Component {
+class DisplayHighlights extends Component {
 	constructor(props) {
 		super(props);
 		this._isMounted = false;
@@ -81,7 +81,7 @@ class Reader extends Component {
 			this.setState({
 				pageNumber: page
 			})
-			window.history.pushState(`${this.state.story}:${page}`, `${this.state.story}`, `/read/${this.state.story}/#${page}`);
+			window.history.pushState(`${this.state.story}:${page}`, `${this.state.story}`, `/data/${this.state.story}/#${page}`);
 		}
 	}
 
@@ -105,8 +105,8 @@ class Reader extends Component {
 		const fetchStoryText = async () => {
 			// Todo: add error handling
 			const ac = new AbortController();
-			const story = await fetch(`../backend/stories/${this.state.story}.txt`, { signal: ac.signal })
-			const highlights = await fetch(`../backend/highlights/id${this.state.participant}_${this.state.story}_cleaned.log`, { signal: ac.signal })
+			const story = await fetch(`../../backend/stories/${this.state.story}.txt`, { signal: ac.signal })
+			const highlights = await fetch(`../../backend/highlights/id${this.state.participant}_${this.state.story}_cleaned.log`, { signal: ac.signal })
 			const highlight_text = await highlights.text()
 			const highlight_obj = highlight_text.split('\n')
 			const storyText = await story.text()
@@ -206,4 +206,4 @@ class Reader extends Component {
 	}
 }
 
-export default Reader;
+export default DisplayHighlights;

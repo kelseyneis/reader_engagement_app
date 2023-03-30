@@ -42,7 +42,7 @@ class Story extends Component {
 									value={value.paragraph}
 									page={value.page}
 									annotate={this.props.annotate}
-									tag={[]} />
+									tag={value.tag} />
 							)
 						}
 					})}
