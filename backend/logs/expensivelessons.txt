@@ -1,0 +1,7 @@
+{'top_left': [19, 0.5], 'bottom_right': [1190.59375, 30], 'page': 8}
+{'top_left': [20, 0.5], 'bottom_right': [1448.03125, 72.5], 'page': 8}
+{'top_left': [97.1171875, 43], 'bottom_right': [1353.90625, 72.5], 'page': 8}
+{'top_left': [20, 101.5], 'bottom_right': [1129.71875, 131], 'page': 8}
+{'top_left': [20, 160], 'bottom_right': [295.828125, 189.5], 'page': 8}
+{'top_left': [20, 160], 'bottom_right': [1448.484375, 232], 'page': 8}
+{'count': 6}

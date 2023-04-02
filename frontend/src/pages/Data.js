@@ -40,7 +40,6 @@ class Data extends Component {
                <option value="13">id13</option>
                <option value="14">id14</option>
                <option value="15">id15</option>
-               <option value="16">id16</option>
                <option value="17">id17</option>
                <option value="18">id18</option>
                <option value="19">id19</option>
@@ -50,11 +49,9 @@ class Data extends Component {
                <option value="23">id23</option>
                <option value="24">id24</option>
                <option value="25">id25</option>
-               <option value="26">id26</option>
                <option value="27">id27</option>
                <option value="28">id28</option>
                <option value="30">id30</option>
-               <option value="31">id31</option>
             </select>
             <DisplayHighlights story={this.state.story} participant={this.state.participant} key={this.state.key}/>
          </div>

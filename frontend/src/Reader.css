@@ -38,7 +38,8 @@ div.story,
 div.login,
 div.instructions,
 div.highlight {
-  height: 90vh;
+  height: 900px;
+  width: 1500px;
   padding: 10px 20px 10px 20px;
   overflow: scroll;
 }

@@ -77,7 +77,7 @@ def highlight():
     app.logger.info(f"Highlight: {highlight}")
     with open(f"./logs/{user}.txt", 'a') as f:
         f.write(
-            f"{datetime.datetime.now().strftime('%Y-%m-%d-%X')} Highlight: {str(highlight)}\n")
+            f"{str(highlight)}\n")
     return str(highlight)
 
 

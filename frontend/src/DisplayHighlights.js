@@ -4,6 +4,14 @@ import "./Reader.css";
 import Story, { PageNumber } from "./Story";
 import { elementsOnPage, isInBounds, hideParagraphs } from './readerUtils';
 
+function importAll(r) {
+	let images = {};
+  r.keys().forEach((item, index) => { images[item.replace('./', '')] = r(item); });
+	return images
+}
+
+const images = importAll(require.context('./background', false, /\.(png|jpe?g|svg)$/));
+console.log(images)
 class DisplayHighlights extends Component {
 	constructor(props) {
 		super(props);
@@ -15,6 +23,7 @@ class DisplayHighlights extends Component {
 			totalPages: 0,
 			participant: this.props.participant,
 			key: this.props.key,
+			image: images[this.props.pageNumber]
 		};
 
 		// Bind stateful functions
@@ -37,10 +46,7 @@ class DisplayHighlights extends Component {
 
 	setPageNumber(page) {
 		const paragraphs = elementsOnPage(-1);
-		if (page === 1) {
-			this.updatePage(document.getElementById("firstQuestions"), page);
-			return;
-		} else if (paragraphs.length === 0) {
+		if (paragraphs.length === 0) {
 			return;
 		}
 		let count = 0;
@@ -58,29 +64,35 @@ class DisplayHighlights extends Component {
 		}
 	}
 
-	showPage(page, direction) {
-		if (page >= 0 && page <= this.state.totalPages) {
+	showPage = async (page, direction) =>{
+		if (page >= 0 && page < this.state.totalPages) {
 			if (page === this.state.totalPages && this.state.annotate) {
 				page = page - direction
 			}
 			hideParagraphs(document.getElementsByClassName('paragraph'));
-			if (page === 1 && this.state.annotate) {
-				// If the user is annotating, skip page 1 questions
-				page = page + direction;
-			}
 			const paragraphs = elementsOnPage(page);
 			for (let i of paragraphs) {
 				i.classList.replace('hidden', 'visible');
 			}
-			if (page === this.state.totalPages && !this.state.annotate) {
-				console.log("showing last questions")
-				document.getElementById("lastQuestions")
-					.classList.replace('hidden', 'visible');
-			}
 
 			this.setState({
-				pageNumber: page
+				pageNumber: page,
 			})
+			// var count=0;
+			// for (let i of document.getElementsByClassName('visible')) {
+			// 	for (let j of i.getElementsByTagName('span')) {
+			// 		let bounding_object = j.getBoundingClientRect();
+			// 		count++;
+			// 		await fetch('/backend/log_highlights', {
+			// 			method: 'POST', body: `{"top_left": [${bounding_object.left}, ${bounding_object.top-80}], "bottom_right": [${bounding_object.right}, ${bounding_object.bottom-80}], "page": ${page}}`,
+			// 			headers: { 'Content-Type': 'application/json' }
+			// 		 });
+			// 	}
+			// }
+			// await fetch('/backend/log_highlights', {
+			// 	method: 'POST', body: `{"count": ${count}}`,
+			// 	headers: { 'Content-Type': 'application/json' }
+			//  });
 			window.history.pushState(`${this.state.story}:${page}`, `${this.state.story}`, `/data/${this.state.story}/#${page}`);
 		}
 	}
@@ -109,6 +121,7 @@ class DisplayHighlights extends Component {
 			const highlights = await fetch(`../../backend/highlights/id${this.state.participant}_${this.state.story}_cleaned.log`, { signal: ac.signal })
 			const highlight_text = await highlights.text()
 			const highlight_obj = highlight_text.split('\n')
+
 			const storyText = await story.text()
 			const storyObjects = storyText.split('\n')
 				.map((value, index) => {
@@ -120,20 +133,9 @@ class DisplayHighlights extends Component {
 						tag: JSON.parse(highlight_obj[index])
 					}
 				});
-			const storiesWithQuestions = storyObjects.concat({
-				paragraph: "firstQuestions",
-				page: 1,
-				style: "",
-				index: storyObjects.length
-			}).concat({
-				paragraph: "lastQuestions",
-				page: 100,
-				style: "",
-				index: storyObjects.length + 1
-			});
 
 			this._isMounted && this.setState({
-				paragraphs: storiesWithQuestions,
+				paragraphs: storyObjects,
 				pageNumber: 0
 			})
 
@@ -150,10 +152,10 @@ class DisplayHighlights extends Component {
 			}
 			// Set total pages
 			this._isMounted && this.setState({
-				totalPages: total,
+				totalPages: total
 			})
 
-			this.updatePage(document.getElementById("lastQuestions"), this.state.totalPages);
+			// this.updatePage(document.getElementById("lastQuestions"), this.state.totalPages);
 
 			// Show first page
 			hideParagraphs(document.getElementsByClassName('paragraph'))
@@ -183,18 +185,14 @@ class DisplayHighlights extends Component {
 		const paragraphs = this.state.paragraphs;
 		const page = this.state.pageNumber;
 		const totalPages = this.state.totalPages;
-		const annotate = this.state.annotate;
+		const annotate = false;
 		const story = this.state.story;
 		const participant = this.state.participant;
-		console.log("rendering " + participant)
+		const img_story = this.state.story === "schoolmistress" ? "schoolmistress" : "el";
+
 		return (
 			<div className="read" key={participant}>
-				<PageNumber
-					page={page}
-					total={totalPages}
-				/>
-				<button className={annotate ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
-					id="annotate" onClick={this.toggleAnnotate} >Toggle highlighting</button>
+				<img src={images[`id${participant}_${img_story}-${page}.png`]} alt="background" className="background" style ={{position: "absolute"}}/>
 				<Story
 					paragraphs={paragraphs}
 					annotate={annotate}

@@ -18,24 +18,24 @@ class Story extends Component {
 			<div className="story" >
 				{
 					this.props.paragraphs.map((value, index) => {
-						if (value.page === 1) {
-							return (
-								<FirstQuestions
-									key={index}
-									index={index}
-									page={value.page} />
-							)
-						} else if (value.paragraph === "lastQuestions") {
-							return (
-								<LastQuestions
-									id="lastQuestions"
-									value="lastQuestions"
-									key={index}
-									index={index}
-									page={value.page}
-									story={this.props.story} />
-							)
-						} else {
+						// if (value.page === 1) {
+						// 	return (
+						// 		<FirstQuestions
+						// 			key={index}
+						// 			index={index}
+						// 			page={value.page} />
+						// 	)
+						// } else if (value.paragraph === "lastQuestions") {
+						// 	return (
+						// 		<LastQuestions
+						// 			id="lastQuestions"
+						// 			value="lastQuestions"
+						// 			key={index}
+						// 			index={index}
+						// 			page={value.page}
+						// 			story={this.props.story} />
+						// 	)
+						// } else {
 							return (
 								<Paragraph key={index}
 									index={index}
@@ -45,7 +45,7 @@ class Story extends Component {
 									tag={value.tag} />
 							)
 						}
-					})}
+					)}
 			</div>
 		);
 	}

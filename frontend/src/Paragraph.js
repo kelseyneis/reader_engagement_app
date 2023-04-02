@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { TextAnnotator } from 'react-text-annotate'
-
+import { ReactDOM } from "react";
 
 const log = require('console-log-level')({
    prefix: function (level) {
@@ -42,8 +42,9 @@ class Paragraph extends Component {
       return (
          <div className="paragraph visible"
             page={this.props.page}
-            style={this.props.style} index={this.props.index}>
-            <select className="form-select form-select-sm"
+            style={this.props.style} index={this.props.index}
+            >
+            {/* <select className="form-select form-select-sm"
                style={{ display: this.getAnnotate(), width: '15%' }}
                onChange={e => this.setState({ tag: e.target.value })}
                value={this.state.tag}
@@ -53,7 +54,8 @@ class Paragraph extends Component {
                <option value="Present">Vividly picture the scene</option>
                <option value="Curious">Curious about what will happen</option>
                <option value="Other">Liked (other)</option>
-            </select>
+            </select> */}
+            {/* dangerouslySetInnerHTML={{ __html: this.props.value }} */}
             <p>
                <TextAnnotator
                   content={this.props.value}
